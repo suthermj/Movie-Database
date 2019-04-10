@@ -70,7 +70,7 @@ void loginValidate(const std::string loginUserV, const std::string loginPassV) {
     std::string qstring;
     mysqlpp::Connection myDB("cse278", "192.155.95.213", "cse278","zLATBsMFQhwXdNbr");
     mysqlpp::Query query = myDB.query();
-    qstring = "SELECT user,pass FROM loginDatabase WHERE user=%0q AND pass=%1q";
+    qstring = "SELECT user,pass FROM loginDatabase WHERE user=%0q AND pass=%1q;";
     query << qstring; 
     mysqlpp::StoreQueryResult result = query.store(loginUserV,loginPassV);
     if(result.size() == 1){
