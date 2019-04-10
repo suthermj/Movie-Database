@@ -10,7 +10,8 @@
  * Copyright Jack Budow 2019
  * Created on April 3, 2019, 11:00 PM
  */
-
+#define MYSQLPP_MYSQL_HEADERS_BURIED
+#include <mysql++/mysql++.h>
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
@@ -27,32 +28,28 @@ void printResultInHtml(std::string result) {
 
 void createAccountSave(std::string const caUserV, const std::string caPassV,
     const std::string caEmailV) {
-    std::ofstream usersFile("Users.txt",
-            std::ios_base::out | std::ios_base::app);
-    usersFile << caUserV << " " << caPassV << " " << caEmailV << std::endl;
-    usersFile.close();
+    std::string qstring; 
+    mysqlpp::Connection myDB("cse278", "192.155.95.213", "cse278","zLATBsMFQhwXdNbr");
+    mysqlpp::Query query = myDB.query();
+    qstring = "INSERT INTO loginDatabase(user,pass,email) VALUES (%0q,%1q,%2q);";
+    query << qstring; 
+    mysqlpp::StoreQueryResult result = query.store(caUserV,caPassV,caEmailV);
     printResultInHtml("Success, account created");
 }
 
 void createAccountValidate(const std::string caUserV, const std::string caPassV,
     const std::string caEmailV) {
-    std::string line;
+    std::string qstring;
     bool pass = true;
-    std::ifstream usersFile("Users.txt");
-    while (!usersFile.eof()) {
-        std::getline(usersFile, line);
-        if (line.find(caUserV) != std::string::npos) {
-            printResultInHtml("Failure, account already exists");
-            pass = false;
-            break;
-        }
-        if (line.find(caEmailV) != std::string::npos) {
-            printResultInHtml("Failure, account already exists");
-            pass = false;
-            break;
-        }
+    mysqlpp::Connection myDB("cse278", "192.155.95.213", "cse278","zLATBsMFQhwXdNbr");
+    mysqlpp::Query query = myDB.query();
+    qstring = "SELECT user,email FROM loginDatabase WHERE user = %0q OR email = %1q;";
+    query << qstring; 
+    mysqlpp::StoreQueryResult result = query.store(caUserV,caEmailV);
+    
+    if(result.size() > 0){
+        pass = false;
     }
-    usersFile.close();
     if (pass)
         createAccountSave(caUserV, caPassV, caEmailV);
 }
@@ -70,23 +67,20 @@ void createAccountProcess(std::string postData) {
 }
 
 void loginValidate(const std::string loginUserV, const std::string loginPassV) {
-    std::string line;
-    bool pass = false;
-    std::ifstream usersFile("Users.txt");
-    while (!usersFile.eof()) {
-        std::getline(usersFile, line);
-        if (line.find(loginUserV) != std::string::npos && 
-                line.find(loginPassV) != std::string::npos) {
-            std::string str = "Success! Welcome back ";
+    std::string qstring;
+    mysqlpp::Connection myDB("cse278", "192.155.95.213", "cse278","zLATBsMFQhwXdNbr");
+    mysqlpp::Query query = myDB.query();
+    qstring = "SELECT user,pass FROM loginDatabase WHERE user=%0q AND pass=%1q";
+    query << qstring; 
+    mysqlpp::StoreQueryResult result = query.store(loginUserV,loginPassV);
+    if(result.size() == 1){
+        std::string str = "Success! Welcome back ";
             str.append(loginUserV);
             printResultInHtml(str);
-            pass = true;
-            break;
-        }
     }
-    usersFile.close();
-    if (!pass)
+    else{
         printResultInHtml("Failure, credentials were not valid");
+    }
 }
 
 void loginProcess(std::string postData) {
@@ -105,11 +99,9 @@ int main() {
     std::string postData;
     std::getline(std::cin, postData);
     // Echo/print the inputs this program got in HTML format
-
     if (queryStr == "CA")
         createAccountProcess(postData);
     if (queryStr == "Login")
         loginProcess(postData);
     return 0;
 }
-
