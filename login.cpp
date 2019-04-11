@@ -6,7 +6,7 @@
 
 /* 
  * File:   main.cpp
- * Author: Jack
+ * Author: Jack 
  * Copyright Jack Budow 2019
  * Created on April 3, 2019, 11:00 PM
  */
