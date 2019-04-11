@@ -87,7 +87,7 @@ void loginValidate(const std::string loginUserV, const std::string loginPassV) {
     try{
         query.parse();
         mysqlpp::StoreQueryResult result = query.store(loginUserV,loginPassV);
-        if(result.size() == 1){
+        if(result.size() != 0){
             std::string str = "Success! Welcome back ";
             str.append(loginUserV);
             printResultInHtml(str);
