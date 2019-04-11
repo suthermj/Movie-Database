@@ -32,9 +32,15 @@ void createAccountSave(std::string const caUserV, const std::string caPassV,
     mysqlpp::Connection myDB("cse278", "192.155.95.213", "cse278","zLATBsMFQhwXdNbr");
     mysqlpp::Query query = myDB.query();
     qstring = "INSERT INTO loginDatabase(user,pass,email) VALUES (%0q,%1q,%2q);";
-    query << qstring; 
+    query << qstring;
+    try{
+    query.parse();
     mysqlpp::StoreQueryResult result = query.store(caUserV,caPassV,caEmailV);
     printResultInHtml("Success, account created");
+    }
+    catch(mysqlpp::BadQuery e){
+        
+    }
 }
 
 void createAccountValidate(const std::string caUserV, const std::string caPassV,
@@ -44,7 +50,9 @@ void createAccountValidate(const std::string caUserV, const std::string caPassV,
     mysqlpp::Connection myDB("cse278", "192.155.95.213", "cse278","zLATBsMFQhwXdNbr");
     mysqlpp::Query query = myDB.query();
     qstring = "SELECT user,email FROM loginDatabase WHERE user = %0q OR email = %1q;";
-    query << qstring; 
+    query << qstring;
+    try{
+    query.parse();
     mysqlpp::StoreQueryResult result = query.store(caUserV,caEmailV);
     
     if(result.size() > 0){
@@ -52,6 +60,10 @@ void createAccountValidate(const std::string caUserV, const std::string caPassV,
     }
     if (pass)
         createAccountSave(caUserV, caPassV, caEmailV);
+    }
+    catch(mysqlpp::BadQuery e){
+        
+    }
 }
 
 void createAccountProcess(std::string postData) {
@@ -71,16 +83,23 @@ void loginValidate(const std::string loginUserV, const std::string loginPassV) {
     mysqlpp::Connection myDB("cse278", "192.155.95.213", "cse278","zLATBsMFQhwXdNbr");
     mysqlpp::Query query = myDB.query();
     qstring = "SELECT user,pass FROM loginDatabase WHERE user=%0q AND pass=%1q;";
-    query << qstring; 
-    mysqlpp::StoreQueryResult result = query.store(loginUserV,loginPassV);
-    if(result.size() == 1){
-        std::string str = "Success! Welcome back ";
+    query << qstring;
+    try{
+        query.parse();
+        mysqlpp::StoreQueryResult result = query.store(loginUserV,loginPassV);
+        if(result.size() == 1){
+            std::string str = "Success! Welcome back ";
             str.append(loginUserV);
             printResultInHtml(str);
+        }
+        else{
+            printResultInHtml("Failure, credentials were not valid");
+        }
     }
-    else{
-        printResultInHtml("Failure, credentials were not valid");
+    catch(mysqlpp::BadQuery e){
+        
     }
+    
 }
 
 void loginProcess(std::string postData) {
