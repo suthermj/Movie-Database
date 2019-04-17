@@ -17,13 +17,15 @@
         <!--LAUNCH OVERLAY-->
         <div id="launch-overlay">
             <div id="launch-overlay-text">The Movie Database</div>
-            <div id="launch-overlay-button" onclick="launchOverlayOff(); navBarOpen(); headerTopOpen(); backgroundLineOpen(); setTimeout(onLoadPopulate,3450);">Launch</div>
+            <div id="launch-overlay-button" onclick="launchOverlayOff(); navBarOpen(); headerTopOpen(); backgroundLineOpen(); setTimeout(onLoadPopulate, 3450);">Launch</div>
         </div>
 
         <!--NAV OVERLAY-->
         <div id="navBar-left" class="navBar-left">
-            <a href="#">Login</a>
-            <a href="#">Create Account</a>
+
+            <!--LOGIN FORM OPEN BUTTON-->
+            <a onclick="document.getElementById('id01').style.display = 'block'" style="width:auto;">Login/Create Account</a>
+
             <a href="#">About</a>
         </div>
 
@@ -47,6 +49,50 @@
             <iframe id="content-iframe" class="content-iframe" name="result" height="710"></iframe>
         </div>
 
+        <!--LOGIN / CREATE ACCOUNT OVERLAY-->
+        <div id="id01" class="form-overlay">
+            
+            <!--LOGIN FORM OVERLAY-->
+            <form id="formLogin" class="loginForm animate" action="db.cgi?login">
+                <div class="loginForm-image-container">
+                    <img src="https://img.icons8.com/color/150/000000/jake.png" id="avatarPNG" alt="Avatar" class="loginForm-image"></img>
+                </div>
+                <div class="loginForm-main-container">
+                    <label for="loginusername"><b>Username</b></label>
+                    <input type="text" placeholder="Enter Username" name="loginusername" required>
+
+                    <label for="loginpassword"><b>Password</b></label>
+                    <input type="password" placeholder="Enter Password" name="loginpassword" required>
+
+                    <button type="submit">Login</button>
+                    <button type="button" onclick="closeLogin();">Create Account</button>
+                    <button type="button" onclick="closeFormOverlay();" class="close-button">Close</button>
+                </div>
+            </form>
+            
+            <!--CREATE ACCOUNT FORM OVERLAY-->
+            <form id="formCreateAccount" class="loginForm animate" action="db.cgi?CA" style="display: none">
+                <div class="loginForm-image-container">
+                    <img src="https://img.icons8.com/color/150/000000/jake.png" id="avatarPNG" alt="Avatar" class="loginForm-image"></img>
+                </div>
+                <div class="loginForm-main-container">
+                    <label for="CAusername"><b>Username</b></label>
+                    <input type="text" placeholder="Enter Username" name="CAusername" required>
+
+                    <label for="CApassword"><b>Password</b></label>
+                    <input type="password" placeholder="Enter Password" name="CApassword" required>
+                    
+                    <label for="CAemail"><b>Password</b></label>
+                    <input type="password" placeholder="Enter Password" name="CAemail" required>
+
+                    <button type="submit">Login</button>
+                    <button type="button" onclick="openLogin();">Login</button>
+                    <button type="button" onclick="closeFormOverlay();" class="close-button">Close</button>
+                </div>
+            </form>
+        </div>
+        
+        <!--END OF HTML FILE-->
 
         <script>
 
@@ -72,6 +118,28 @@
                 document.getElementById("navBar-left").style.width = "0";
             }
 
+            /*********************
+             LOGIN / CREATE ACCOUNT OVERLAY
+             *********************/
+            
+            function openFormOverlay() {
+                document.getElementById('id01').style.display = 'block'
+            }
+            
+            function closeFormOverlay() {
+                document.getElementById('id01').style.display = 'none'
+            }
+            
+            function openLogin() {
+                document.getElementById('formLogin').style.display = 'block'
+                document.getElementById('formCreateAccount').style.display = 'none'
+            }
+            
+            function closeLogin() {
+                document.getElementById('formLogin').style.display = 'none'
+                document.getElementById('formCreateAccount').style.display = 'block'
+            }
+            
             /*********************
              HEADER OVERLAY
              *********************/
@@ -112,7 +180,5 @@
             }
 
         </script>
-
     </body>
 </html>
-
