@@ -1,3 +1,4 @@
+
 /* 
  * File:   index.cpp
  * Author: Jack
@@ -26,17 +27,18 @@ const std::string HTMLFooter = "</body>\n</html>";
 
 void getMovies(mysqlpp::StoreQueryResult result) { 
     for (const auto& row : result) {
-        Movie movie(row[0] , row[1].c_str() , row[2] , row[3].c_str() 
-        , row[4] , row[5], row[6]);
+        Movie movie(row[0].c_str() , row[1] , row[2].c_str() , row[3] 
+        , row[4] , row[5], row[6].c_str(), row[7].c_str(), row[8].c_str(),
+                row[9], row[10]);
         movie.printAsHtml(std::cout);
     }
 }
 
 mysqlpp::StoreQueryResult connectToDBSearch(std::string search) {
-    mysqlpp::Connection myDB("cse278s19", "os1.csi.miamioh.edu", "cse278s19",
-            "rbHkqL64VpcJ2ezj");
+    mysqlpp::Connection myDB("cse278", "192.155.95.213", "cse278",
+            "zLATBsMFQhwXdNbr");
     mysqlpp::Query searchQuery = myDB.query();
-    searchQuery << "SELECT * FROM Movies WHERE title LIKE '%%%0%%'";
+    searchQuery << "SELECT * FROM movie WHERE title LIKE '%%%0%%'";
     searchQuery.parse();
     mysqlpp::StoreQueryResult result = searchQuery.store(search);
     return result;
@@ -52,10 +54,10 @@ void processSearch(std::string postData) {
 }
 
 mysqlpp::StoreQueryResult connectToDB() {
-    mysqlpp::Connection myDB("cse278s19", "os1.csi.miamioh.edu", "cse278s19",
-            "rbHkqL64VpcJ2ezj");
+    mysqlpp::Connection myDB("cse278", "192.155.95.213", "cse278",
+            "zLATBsMFQhwXdNbr");
     mysqlpp::Query query = myDB.query();
-    query << "SELECT * FROM Movies";
+    query << "SELECT * FROM movie";
     query.parse();
     mysqlpp::StoreQueryResult result = query.store();
     return result;

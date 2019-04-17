@@ -15,22 +15,27 @@
 #include "Movie.h"
 
 // The default (and only) constructor for this class.
-Movie::Movie(int movieID, const std::string& title, int year, 
-        const std::string& genres, int imdbId, float rating, int numRaters) :
-movieID(movieID), title(title), year(year), genres(genres), imdbId(imdbId), 
-        rating(rating), numRaters(numRaters) {
+Movie::Movie(const std::string& title, int year, 
+        const std::string& genres, int imdbId, float rating, int numRaters
+        std::string img_src, std::string description, std::string director,
+        int isDelete, int isPending) :
+    title(title), year(year), genres(genres), imdbId(imdbId), 
+        rating(rating), numRaters(numRaters), img_src(img_src),
+        description(description),director(director),isDelete(isDelete),
+        isPending(isPending){
 }
 
 // The destructor
-Movie::~Movie() {
+/*Movie::~Movie() {
     // Currently, the destructor does not have any special tasks to do.
-}
+}*/
 
 // Stream-extraction operator.
 std::istream& operator>>(std::istream& is, Movie& m) {
     // Read the values from an entry in the stream/file in the correct order.
-    is >> m.movieID >> std::quoted(m.title) >> m.year >> std::quoted(m.genres)
-       >> m.imdbId  >> m.rating >> m.numRaters;
+    is >> std::quoted(m.title) >> m.year >> std::quoted(m.genres)
+       >> m.imdbId  >> m.rating >> m.numRaters >> std::quoted(m.img_src) >> std::quoted(m.description)
+            >> std::quoted(m.director) >> m.isDelte >> m.isPending;
     // Return the stream as per the API requirement.
     return is;
 }
@@ -38,9 +43,11 @@ std::istream& operator>>(std::istream& is, Movie& m) {
 // The stream insertion operator.
 std::ostream& operator<<(std::ostream& os, const Movie& m) {
     // Read the values from an entry in the stream/file in the correct order.
-    os << m.movieID << " " << std::quoted(m.title) << " " << m.year   << " " 
+    os << std::quoted(m.title) << " " << m.year   << " " 
        << std::quoted(m.genres) << " " << m.imdbId << " " << m.rating << " "
-       << m.numRaters;
+       << m.numRaters << " " << std::quoted(m.img_src) << " " 
+       << std::quoted(m.description) << " " << std::quoted(m.director)
+       << " " << m.isDelete << " " << m.isPending;
     // Return the stream as per the API requirement.
     return os;    
 }
@@ -55,9 +62,7 @@ std::string to_string(const Movie& m) {
 // Return value for a given column
 std::string
 Movie::getCol(const std::string& col) const {
-    if (col == "movieid") {
-        return std::to_string(movieID);
-    } else if (col == "title") {
+     if (col == "title") {
         return title;
     } else if (col == "year") {
         return std::to_string(year);
@@ -69,6 +74,21 @@ Movie::getCol(const std::string& col) const {
         return std::to_string(rating);
     } else if (col == "raters") {
         return std::to_string(numRaters);
+    }
+    else if(col == "img_src"){
+        return img_src;
+    }
+    else if(col == "description"){
+        return description;
+    }
+    else if(col == "director"){
+        return director;
+    }
+    else if(col == "isDelete"){
+        return std::to_string(isDelete);
+    }
+    else if(col == "isPending"){
+        return std::to_string(isPending);
     }
     // Unknown column name.
     return "";
@@ -89,3 +109,4 @@ Movie::printAsHtml(std::ostream& os) const {
 }
 
 #endif
+

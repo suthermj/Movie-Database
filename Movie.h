@@ -16,24 +16,24 @@ class Movie {
     friend std::ostream& operator<<(std::ostream&, const Movie& m);
 
 public:
-    Movie(int movieID = 0, const std::string& title = "",
+    Movie(const std::string& title = "",
             const int year = 0, const std::string& genres = "",
             const int imdbId = 0, const float rating = 0.0,
-            const int numRaters = 0);
+            const int numRaters = 0 std::string&img_src = "",
+            std::string description = "", std::string director = "",
+            int isDelete = 0, int isPending = 0);
 
     virtual ~Movie();
 
-    int getID() const {
+    /*int getID() const {
         return movieID;
-    }
+    }*/
 
     std::string getCol(const std::string& colName) const;
 
     void printAsHtml(std::ostream& os) const;
 
 private:
-    int movieID = -1;
-
     std::string title;
 
     int year;
@@ -45,9 +45,18 @@ private:
     float rating;
 
     int numRaters;
+    
+    std::string img_src;
+    
+    std::string description;
+    
+    std::string director;
+    
+    int isDelete;
+    
+    int isPending;
 };
 
 std::string to_string(const Movie& m);
 
 #endif /* MOVIE_H */
-
