@@ -1,0 +1,278 @@
+@import url('https://fonts.googleapis.com/css?family=Dokdo');
+@import url('https://fonts.googleapis.com/css?family=Roboto:300');
+
+/*********************
+        BODY
+*********************/
+
+body {
+  font-family: "Gruppo";
+  background-color: #6D6D6D;
+}
+
+/*********************
+    LAUNCH OVERLAY
+*********************/
+
+#launch-overlay {
+  position: fixed;
+  display: block;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: 1s;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 2;
+}
+
+#launch-overlay-text {
+  position: absolute;
+  top: 250px;
+  left: 50%;
+  font-size: 50px;
+  color: white;
+  transition: 1s;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+
+#launch-overlay-button {
+  position: absolute;
+  top: 325px;
+  left: 50%;
+  font-size: 50px;
+  color: grey;
+  transition: 1s;
+  background-color: transparent;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  cursor: pointer;
+}
+
+/*********************
+    NAV OVERLAY
+*********************/
+
+.navBar-left {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition-delay: all 4s;
+  transition: all 2s;
+  padding-top: 60px;
+}
+
+.navBar-left a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 23px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+navBar-left a:hover {
+  color: white;
+}
+
+@media screen and (max-height: 450px) {
+  .navBar-left {
+    padding-top: 15px;
+  }
+  .navBar-left a {
+    font-size: 18px;
+  }
+}
+
+/*********************
+    HEADER OVERLAY
+*********************/
+/*********************
+      SORT/FILTER
+*********************/
+
+.header-top {
+  height: 0;
+  width: 83%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  text-align: center;
+  background-color: #111;
+  overflow-x: hidden;
+  transition-delay: 8s;
+  transition: 2s;
+}
+
+.header-top a {
+  padding: 10px 100px 8px 75px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 23px;
+  color: #818181;
+  display: inline-block;
+  transition: 0.3s;
+}
+
+.header-top a:hover {
+  color: white;
+}
+
+/*********************
+      SEARCH BAR
+*********************/
+
+* {
+  box-sizing: border-box;
+}
+
+/* Style the search field */
+form.searchForm input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 0 none;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+}
+
+form.searchForm button {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  background: #ffdab9;
+  color: black;
+  font-size: 17px;
+  border: 0 none;
+  border-left: none;
+  cursor: pointer;
+}
+
+form.searchForm button:hover {
+  background: grey;
+  opacity: .8;
+}
+
+form.searchForm::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/*********************
+ BACKGROUND GRAPHICS
+*********************/
+
+.line1 {
+  height: 0;
+  width: 10px;
+  position: fixed;
+  z-index: 0;
+  top: 0;
+  overflow-x: hidden;
+  left: 19%;
+  background-color: red;
+  transition-delay: height 5s;
+  transition: height 4s;
+}
+
+.line2 {
+  height: 0;
+  width: 10px;
+  position: fixed;
+  z-index: 0;
+  top: 0;
+  overflow-x: hidden;
+  left: 18%;
+  background-color: orange;
+  transition-delay: height 6s;
+  transition: height 2s;
+}
+
+.line3 {
+  height: 0;
+  width: 10px;
+  position: fixed;
+  z-index: 0;
+  top: 0;
+  overflow-x: hidden;
+  left: 20%;
+  background-color: gold;
+  transition-delay: height 3s;
+  transition: height 5s;
+}
+
+/*********************
+    CONTENT FRAME
+*********************/
+
+.content-container {
+  height: 100%;
+  width: 83%;
+  position: fixed;
+  z-index: 1;
+  top: 21.5%;
+  right: 0;
+  text-align: center;
+  background-color: transparent;
+  overflow-x: hidden;
+  transition-delay: 8s;
+  transition: 2s;
+}
+
+.content-container .content-iframe {
+    border: 0;
+    width: 100%;
+    background-color: transparent;
+    color: transparent;
+    opacity: 0;
+    transition: 3s;
+}
+
+/*********************
+        MOVIES
+*********************/
+
+.movie {
+    border-radius: 5px;
+    width: 21.6%;
+    height:  130px;
+    display: inline-table;
+    border: 1px solid #cccccc;
+    z-index: 2;
+    padding: 5px 10px 5px 10px;
+    margin: 5px;
+}
+
+div > p {
+    z-index: 1;
+    margin: 3px;
+}
+
+.movie:nth-of-type(even) {
+    background-color: #E69145;
+}
+
+.movie:nth-of-type(odd) {
+    background-color: bisque;
+}
+
+.title {
+    z-index: 1;
+    border: 1px solid #333;
+    border-radius: 5px;
+    background: #333;
+    padding: 0px 8px 0px 8px;
+    color: white;
+    font-weight: bold;
+}

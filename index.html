@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>The Movie Database</title>
+        <meta name="viewport" content="width-device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" href="index.css">
+        <link href='https://fonts.googleapis.com/css?family=Gruppo' rel='stylesheet'>
+    </head>
+
+    <body>
+
+        <!--PRELOAD MOVIES-->
+        <form name="allMovies" id="allMov" action="db.cgi?load" method="post" target="result"></form>
+
+        <!--LAUNCH OVERLAY-->
+        <div id="launch-overlay">
+            <div id="launch-overlay-text">The Movie Database</div>
+            <div id="launch-overlay-button" onclick="launchOverlayOff(); navBarOpen(); headerTopOpen(); backgroundLineOpen(); setTimeout(onLoadPopulate,3450);">Launch</div>
+        </div>
+
+        <!--NAV OVERLAY-->
+        <div id="navBar-left" class="navBar-left">
+            <a href="#">Login</a>
+            <a href="#">Create Account</a>
+            <a href="#">About</a>
+        </div>
+
+        <!--HEADER OVERLAY-->
+        <div id="header-top" class="header-top">
+            <form class="searchForm" action="db.cgi?search" method="post" target="result">
+                <input type="text" placeholder="...Search by Title... " name="search"/>
+                <button type="submit">Search</button>
+            </form>
+            <a href="#">FILTER</a>
+            <a href="#">SORT</a>
+        </div>
+
+        <!--BACKGROUND DESIGN-->
+        <div id="line1" class="line1"></div>
+        <div id="line2" class="line2"></div>
+        <div id="line3" class="line3"></div>
+
+        <!--CONTENT BOX-->
+        <div id="content-container" class="content-container">
+            <iframe id="content-iframe" class="content-iframe" name="result" height="710"></iframe>
+        </div>
+
+
+        <script>
+
+            /*********************
+             LAUNCH OVERLAY
+             *********************/
+
+            function launchOverlayOff() {
+                document.getElementById("launch-overlay").style.width = "0";
+                document.getElementById("launch-overlay-text").style.color = "transparent";
+                document.getElementById("launch-overlay-button").style.color = "transparent";
+            }
+
+            /*********************
+             NAV OVERLAY
+             *********************/
+
+            function navBarOpen() {
+                document.getElementById("navBar-left").style.width = "15%";
+            }
+
+            function navBarClose() {
+                document.getElementById("navBar-left").style.width = "0";
+            }
+
+            /*********************
+             HEADER OVERLAY
+             *********************/
+
+            function headerTopOpen() {
+                document.getElementById("header-top").style.height = "100px";
+                document.getElementById("header-top").style.margin = "60px, 0px, 0px, 0px";
+                document.getElementById("header-top").style.top = "5%";
+            }
+
+            function headerTopClose() {
+                document.getElementById("header-top").style.height = "0";
+            }
+
+            /*********************
+             BACKGROUND GRAPHICS
+             *********************/
+
+            function backgroundLineOpen() {
+                document.getElementById("line1").style.height = "100%";
+                document.getElementById("line2").style.height = "100%";
+                document.getElementById("line3").style.height = "100%";
+            }
+
+            function backgroundLineClose() {
+                document.getElementById("line1").style.height = "0";
+                document.getElementById("line2").style.height = "0";
+                document.getElementById("line3").style.height = "0";
+            }
+
+            /*********************
+             CONTENT FRAME
+             *********************/
+
+            function onLoadPopulate() {
+                document.allMovies.submit();
+                document.getElementById("content-iframe").style.opacity = "1";
+            }
+
+        </script>
+
+    </body>
+</html>
+
