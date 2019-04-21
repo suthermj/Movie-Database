@@ -1,0 +1,12 @@
+HTML still needs add movie button
+HTML still needs validation of some sort. I called the school about getting php installed on the schools servers and they had nothing for me, so if anyone has an idea that would be sweet.
+	- Ben, do you understand what Stahr has been teaching with ASP.net? If so, option for an update? I know it has better functionality than any of the vanilla scripting.
+C++ THINGS TO DO:
+- Search needs to be able to search for multi string words too. 
+- Filter needs to work.
+- Sort needs to work.
+- Add movie to database methods need to be made and work.
+- Login and Create Account Methods need to be made with the new tables.
+
+Feel free to completely 360 this, or if you have a functioning version elsewhere with minimal css and pure functionality like a wireframe, feel free to branch it. 
+If it is a new project in a sense, make a subbranch of this branch. If its just an update to code, just comment on it! Or put an update note

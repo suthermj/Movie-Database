@@ -25,20 +25,52 @@ const std::string HTMLHeader =
 
 const std::string HTMLFooter = "</body>\n</html>";
 
+/******************************
+ CREATE ACCOUNT
+******************************/
+
+mysqlpp::StoreQueryResult connectToDBCA(std::string uname,
+        std::string upass) {
+    mysqlpp::Connection myDB
+    ("cse278", "192.155.95.213", "cse278", "zLATBsMFQhwXdNbr");
+    mysqlpp::Query searchQuery = myDB.query();
+    searchQuery << "SELECT * FROM Accounts WHERE  LIKE '%0q";
+    searchQuery.parse();
+    mysqlpp::StoreQueryResult result = searchQuery.store(uname, upass);
+    return result;
+}
+
+void processCA(std::string postData) {
+    size_t s1 = postData.find('=');
+    std::string search = postData.substr(s1 + 1);
+    mysqlpp::StoreQueryResult result = connectToDBCA(search);
+    std::cout << HTMLHeader;
+    getMovies(result);
+    std::cout << HTMLFooter;
+}
+
+/******************************
+ CREATE THE MOVIE OBJECT FROM QUERY
+******************************/
+
 void getMovies(mysqlpp::StoreQueryResult result) { 
     for (const auto& row : result) {
-        Movie movie(row[0].c_str() , row[1] , row[2].c_str() , row[3] 
+        Movie movie(row[0].c_str(), row[1] , row[2].c_str() , row[3] 
         , row[4] , row[5], row[6].c_str(), row[7].c_str(), row[8].c_str(),
                 row[9], row[10]);
         movie.printAsHtml(std::cout);
     }
 }
 
+/******************************
+ SEARCH METHODS
+******************************/
+
 mysqlpp::StoreQueryResult connectToDBSearch(std::string search) {
-    mysqlpp::Connection myDB("cse278", "192.155.95.213", "cse278",
-            "zLATBsMFQhwXdNbr");
+    mysqlpp::Connection myDB
+    ("cse278", "192.155.95.213", "cse278", "zLATBsMFQhwXdNbr");
     mysqlpp::Query searchQuery = myDB.query();
-    searchQuery << "SELECT * FROM movie WHERE title LIKE '%%%0%%'";
+    searchQuery << "SELECT * FROM movie WHERE title LIKE '%%%0%%';";
     searchQuery.parse();
     mysqlpp::StoreQueryResult result = searchQuery.store(search);
     return result;
@@ -53,11 +85,15 @@ void processSearch(std::string postData) {
     std::cout << HTMLFooter;
 }
 
+/******************************
+ INITIAL LOAD
+******************************/
+
 mysqlpp::StoreQueryResult connectToDB() {
-    mysqlpp::Connection myDB("cse278", "192.155.95.213", "cse278",
-            "zLATBsMFQhwXdNbr");
+    mysqlpp::Connection myDB
+    ("cse278", "192.155.95.213", "cse278", "zLATBsMFQhwXdNbr");
     mysqlpp::Query query = myDB.query();
-    query << "SELECT * FROM movie";
+    query << "SELECT * FROM movie;";
     query.parse();
     mysqlpp::StoreQueryResult result = query.store();
     return result;
@@ -71,6 +107,10 @@ void loadMovies() {
     std::cout << HTMLFooter;
 }
 
+/******************************
+  MAIN / QUERY-STRING READER 
+******************************/
+
 int main() {
     const char QS[] = "QUERY_STRING";
     std::string queryStr = getenv(QS) != NULL ? getenv(QS) : "";
@@ -81,6 +121,9 @@ int main() {
         std::getline(std::cin, postData);
         if (queryStr == "search") {
             processSearch(postData);
+        }
+        if (queryStr == "CA") {
+            processCA(postData);
         }
     }
     return 0;

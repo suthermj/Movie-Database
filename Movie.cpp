@@ -16,26 +16,29 @@
 
 // The default (and only) constructor for this class.
 Movie::Movie(const std::string& title, int year, 
-        const std::string& genres, int imdbId, float rating, int numRaters
-        std::string img_src, std::string description, std::string director,
-        int isDelete, int isPending) :
-    title(title), year(year), genres(genres), imdbId(imdbId), 
-        rating(rating), numRaters(numRaters), img_src(img_src),
-        description(description),director(director),isDelete(isDelete),
-        isPending(isPending){
+        const std::string& genres, const int imdbId, 
+        const float rating, const int numRaters,
+        const std::string& img_src, const std::string& description,
+        const std::string& director, 
+        const bool isDelete, const bool isPending) :
+        title(title), year(year), genres(genres), imdbId(imdbId), 
+        rating(rating), numRaters(numRaters), img_src(img_src), 
+        description(description), director(director), isDelete(isDelete),
+        isPending(isPending) {
 }
 
 // The destructor
-/*Movie::~Movie() {
+Movie::~Movie() {
     // Currently, the destructor does not have any special tasks to do.
-}*/
+}
 
 // Stream-extraction operator.
 std::istream& operator>>(std::istream& is, Movie& m) {
     // Read the values from an entry in the stream/file in the correct order.
     is >> std::quoted(m.title) >> m.year >> std::quoted(m.genres)
-       >> m.imdbId  >> m.rating >> m.numRaters >> std::quoted(m.img_src) >> std::quoted(m.description)
-            >> std::quoted(m.director) >> m.isDelte >> m.isPending;
+       >> m.imdbId  >> m.rating >> m.numRaters >> std::quoted(m.img_src)
+       >> std::quoted(m.description) >> std::quoted(m.director) >> m.isDelete
+       >> m.isPending;
     // Return the stream as per the API requirement.
     return is;
 }
@@ -43,7 +46,7 @@ std::istream& operator>>(std::istream& is, Movie& m) {
 // The stream insertion operator.
 std::ostream& operator<<(std::ostream& os, const Movie& m) {
     // Read the values from an entry in the stream/file in the correct order.
-    os << std::quoted(m.title) << " " << m.year   << " " 
+    os << std::quoted(m.title) << " " << m.year << " " 
        << std::quoted(m.genres) << " " << m.imdbId << " " << m.rating << " "
        << m.numRaters << " " << std::quoted(m.img_src) << " " 
        << std::quoted(m.description) << " " << std::quoted(m.director)
@@ -62,7 +65,7 @@ std::string to_string(const Movie& m) {
 // Return value for a given column
 std::string
 Movie::getCol(const std::string& col) const {
-     if (col == "title") {
+    if (col == "title") {
         return title;
     } else if (col == "year") {
         return std::to_string(year);
@@ -74,20 +77,15 @@ Movie::getCol(const std::string& col) const {
         return std::to_string(rating);
     } else if (col == "raters") {
         return std::to_string(numRaters);
-    }
-    else if(col == "img_src"){
+    } else if (col == "img_src") {
         return img_src;
-    }
-    else if(col == "description"){
+    } else if (col == "description") {
         return description;
-    }
-    else if(col == "director"){
+    } else if (col == "director") {
         return director;
-    }
-    else if(col == "isDelete"){
+    } else if (col == "isDelete") {
         return std::to_string(isDelete);
-    }
-    else if(col == "isPending"){
+    } else if (col == "isPending") {
         return std::to_string(isPending);
     }
     // Unknown column name.
@@ -105,8 +103,9 @@ Movie::printAsHtml(std::ostream& os) const {
     os << " Link to IMDB: <a href='https://www.imdb.com/title/tt"
        << std::setfill('0') << std::setw(7)  // Ensure 7-digit numbers
        << imdbId << "' target='other'>" << imdbId << "</a></p>\n";
+    os << "<p>" << description << "</p>";
+    os << "<p>" << director << "</p>";
     os << "</div>\n";
 }
 
 #endif
-

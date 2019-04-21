@@ -16,8 +16,10 @@
 
         <!--LAUNCH OVERLAY-->
         <div id="launch-overlay">
+            
             <div id="launch-overlay-text">The Movie Database</div>
             <div id="launch-overlay-button" onclick="launchOverlayOff(); navBarOpen(); headerTopOpen(); backgroundLineOpen(); setTimeout(onLoadPopulate, 3450);">Launch</div>
+            
         </div>
 
         <!--NAV OVERLAY-->
@@ -25,18 +27,22 @@
 
             <!--LOGIN FORM OPEN BUTTON-->
             <a onclick="document.getElementById('id01').style.display = 'block'" style="width:auto;">Login/Create Account</a>
-
+            
             <a href="#">About</a>
+            
         </div>
 
         <!--HEADER OVERLAY-->
         <div id="header-top" class="header-top">
+            
             <form class="searchForm" action="db.cgi?search" method="post" target="result">
                 <input type="text" placeholder="...Search by Title... " name="search"/>
                 <button type="submit">Search</button>
             </form>
+            
             <a href="#">FILTER</a>
             <a href="#">SORT</a>
+            
         </div>
 
         <!--BACKGROUND DESIGN-->
@@ -65,7 +71,7 @@
                     <input type="password" placeholder="Enter Password" name="loginpassword" required>
 
                     <button type="submit">Login</button>
-                    <button type="button" onclick="closeLogin();">Create Account</button>
+                    <button type="button" onclick="closeLogin();">Don't have an Account? Create One!</button>
                     <button type="button" onclick="closeFormOverlay();" class="close-button">Close</button>
                 </div>
             </form>
@@ -85,12 +91,14 @@
                     <label for="CAemail"><b>Password</b></label>
                     <input type="password" placeholder="Enter Password" name="CAemail" required>
 
-                    <button type="submit">Login</button>
-                    <button type="button" onclick="openLogin();">Login</button>
+                    <button type="submit">Create Account</button>
+                    <button type="button" onclick="openLogin();">Go back to Login!</button>
                     <button type="button" onclick="closeFormOverlay();" class="close-button">Close</button>
                 </div>
             </form>
         </div>
+        
+        <iframe name="modbox" style="display: none"></iframe>
         
         <!--END OF HTML FILE-->
 

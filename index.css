@@ -199,9 +199,6 @@ img.loginForm-image-container {
 /*********************
     HEADER OVERLAY
 *********************/
-/*********************
-      SORT/FILTER
-*********************/
 
 .header-top {
   height: 0;
@@ -269,6 +266,18 @@ form.searchForm::after {
   clear: both;
   display: table;
 }
+
+/*********************
+       FILTER
+*********************/
+
+
+
+/*********************
+        SORT
+*********************/
+
+
 
 /*********************
  BACKGROUND GRAPHICS

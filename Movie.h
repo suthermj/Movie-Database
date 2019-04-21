@@ -1,3 +1,4 @@
+#include <iostream>
 /* 
  * File:   Movie.h
  * Author: budowja
@@ -19,15 +20,12 @@ public:
     Movie(const std::string& title = "",
             const int year = 0, const std::string& genres = "",
             const int imdbId = 0, const float rating = 0.0,
-            const int numRaters = 0 std::string&img_src = "",
-            std::string description = "", std::string director = "",
-            int isDelete = 0, int isPending = 0);
+            const int numRaters = 0, const std::string& img_src = "",
+            const std::string& description = "",
+            const std::string& director = "",
+            const bool isDelete = 0, const bool isPending = 0);
 
     virtual ~Movie();
-
-    /*int getID() const {
-        return movieID;
-    }*/
 
     std::string getCol(const std::string& colName) const;
 
@@ -52,9 +50,9 @@ private:
     
     std::string director;
     
-    int isDelete;
+    bool isDelete;
     
-    int isPending;
+    bool isPending;
 };
 
 std::string to_string(const Movie& m);
